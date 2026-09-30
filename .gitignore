@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Registro de actualizaciones automaticas
+auto_update.log
+
+# Sistema / editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Datos descargados en caliente
+# (descomenta si prefieres que el repo no lleve noticias generadas)
+# data/news.json
+# data/news.js

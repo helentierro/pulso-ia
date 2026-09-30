@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es" data-tema="noche">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pulso IA — Noticias de inteligencia artificial en directo</title>
+<meta name="description" content="Agregador en vivo de noticias de inteligencia artificial: modelos, empresas, investigación, política y hardware. Se actualiza cada 15 minutos." />
+<meta name="color-scheme" content="dark light" />
+<meta name="theme-color" content="#0b0b0c" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0b0c'/%3E%3Cpath d='M5 20h4l3-9 4 14 3-8h8' stroke='%23ff4b1f' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<a class="salto" href="#noticias">Saltar al contenido</a>
+
+<header class="barra">
+  <div class="marca">
+    <svg class="glifo" viewBox="0 0 40 40" aria-hidden="true">
+      <rect x="0" y="0" width="40" height="40" rx="9" fill="currentColor" />
+      <path d="M7 25h5l4-11 5 17 4-10h8" fill="none" stroke="var(--fondo)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    <div class="marca-txt">
+      <h1>Pulso IA</h1>
+      <p>Inteligencia artificial, en directo</p>
+    </div>
+  </div>
+
+  <div class="pulso">
+    <span class="vivo" id="estado">
+      <i class="punto"></i>
+      <span id="estadoTxt">Conectando</span>
+    </span>
+    <span class="reloj" id="reloj" aria-label="Hora local">--:--:--</span>
+    <span class="carga" id="cargaTxt"></span>
+    <button id="btnActualizar" class="btn" type="button">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 6.3"/><path d="M20 5v6h-6"/></svg>
+      <span>Actualizar</span>
+    </button>
+    <button id="btnTema" class="btn-icono" type="button" title="Cambiar entre noche y día" aria-label="Cambiar entre noche y día">
+      <svg viewBox="0 0 24 24" aria-hidden="true" class="ic-luna"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true" class="ic-sol"><circle cx="12" cy="12" r="4.2"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="aviso" id="aviso" role="status" hidden></div>
+
+<nav class="filtros" aria-label="Filtros y búsqueda">
+  <div class="pestanas" id="pestanas" role="tablist" aria-label="Categorías"></div>
+  <div class="busca">
+    <svg class="lupa" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+    <input id="buscar" type="search" placeholder="Buscar: GPT, Nvidia, regulación…" autocomplete="off" spellcheck="false" aria-label="Buscar noticias" />
+    <button id="btnLimpiar" class="limpiar" type="button" hidden aria-label="Limpiar búsqueda">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<main class="tablero">
+  <section class="columna" id="noticias" aria-label="Noticias">
+    <article class="portada" id="portada" aria-live="off"></article>
+
+    <div class="linea-resumen">
+      <span id="resumen"></span>
+      <button id="btnNuevo" class="btn-nuevo" type="button" hidden></button>
+    </div>
+
+    <div class="rejilla" id="rejilla">
+      <div class="esqueleto"></div><div class="esqueleto"></div>
+      <div class="esqueleto"></div><div class="esqueleto"></div>
+    </div>
+  </section>
+
+  <aside class="riel" aria-label="Paneles">
+    <section class="panel">
+      <h2>En pantalla ahora</h2>
+      <div class="chips" id="entidades"></div>
+      <p class="nota">Clic para filtrar por esa empresa o tema.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Fuentes</h2>
+      <ul class="salud" id="fuentes"></ul>
+    </section>
+
+    <section class="panel">
+      <h2>Sistema</h2>
+      <dl class="datos" id="sistema"></dl>
+      <p class="nota" id="pista">Actualiza con <b>actualizar.bat</b> o deja una Tarea Programada cada 15 min. Tecla <b>/</b> para buscar.</p>
+    </section>
+  </aside>
+</main>
+
+<footer>
+  <div class="pie-txt">
+    <strong>Pulso IA</strong> — titulares y resúmenes con enlace al medio original. No es asesoría ni opinión de inversión.
+  </div>
+  <div class="pie-mono" id="pieMono"></div>
+</footer>
+
+<script src="data/news.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
