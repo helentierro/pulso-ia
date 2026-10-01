@@ -1,0 +1,62 @@
+name: Actualizar noticias
+
+on:
+  schedule:
+    # Todos los dias a las 06:17 UTC. Se evita la hora en punto porque a las
+    # 06:00 la cola de runners de GitHub se desborda y el job podria retrasarse.
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: actualizar-noticias
+  cancel-in-progress: false
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Traer el codigo
+        uses: actions/checkout@v4
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # fetch_news.py solo usa librerias estandar de Python (json, urllib,
+      # xml.etree, gzip). No hace falta pip install y por eso no puede fallar
+      # la instalacion de dependencias.
+      - name: Descargar las noticias
+        run: python fetch_news.py
+
+      - name: Comprobar si los datos han cambiado
+        id: cambios
+        run: |
+          if git diff --quiet -- data/news.json data/news.js; then
+            echo "sin-cambios=true" >> "$GITHUB_OUTPUT"
+            echo "Los datos son identicos a los ya publicados. No se sube nada."
+          else
+            echo "sin-cambios=false" >> "$GITHUB_OUTPUT"
+            echo "Hay noticias nuevas. Se van a subir."
+            git --no-pager diff --stat -- data/news.json data/news.js
+          fi
+
+      # Los datos son identicos si no llega nada nuevo. Sin este paso, el repo
+      # receberia un commit diario para siempre y el historial quedaria inservible.
+      - name: Subir los datos nuevos
+        if: steps.cambios.outputs.sin-cambios == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/news.json data/news.js
+          HORA=$(date -u +"%Y-%m-%d %H:%M UTC")
+          N=$(python -c "import json;print(json.load(open('data/news.json',encoding='utf-8'))['count'])")
+          git commit -m "Actualiza noticias: $N articulos ($HORA)"
+          git push

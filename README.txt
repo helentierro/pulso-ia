@@ -8,7 +8,7 @@ QUE ES
  The Verge, The Decoder, MIT Tech Review, Google News, etc.),
  las limpia, las clasifica en 6 categorias, agrupa las que
  cuentan la misma historia y las muestra ordenadas por fecha.
- Se actualiza sola cada 15 minutos.
+ Se actualiza sola una vez al dia de forma automatica.
 
 ARCHIVOS
  index.html ............ la pagina (doble clic y listo)
@@ -54,6 +54,13 @@ COMO SE AUTOMATIZA (Windows)
  3. Accion: "Iniciar programa"
     Programa:  D:\DE Dani\PULSO IA\actualizar_silencioso.bat
  4. Listo: data/news.json se refresca solo, la pagina lo detecta
+
+  Esto es solo para la copia de tu PC. La version publicada en GitHub
+  se actualiza por su cuenta con un workflow: una vez al dia y no hace
+  falta el PC encendido. Para forzarlo a mano:
+  GitHub -> pestana Actions -> "Actualizar noticias" -> Run workflow.
+  Si un dia un medio cambia su RSS, el panel de salud marcara menos de
+  24 feeds. El resto sigue funcionando con los datos que ya havia.
 
 NOTAS
  - Solo se muestra titular, resumen y enlace al medio original.
