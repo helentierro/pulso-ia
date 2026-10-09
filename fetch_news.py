@@ -78,6 +78,12 @@ FUENTES = [
     ("GNews Empresas", "https://news.google.com/rss/search?q=(OpenAI+OR+Anthropic+OR+Meta)+(inversi%C3%B3n+OR+acuerdo+OR+empleo)+when:3d&hl=es-419&gl=MX&ceid=MX%3Aes-419", "empresas", 1, "es", EDAD_ES),
     ("GNews Politica", "https://news.google.com/rss/search?q=%22inteligencia+artificial%22+(regulaci%C3%B3n+OR+ley+OR+%22Uni%C3%B3n+Europea%22)+when:3d&hl=es-419&gl=MX&ceid=MX%3Aes-419", "politica", 1, "es", EDAD_ES),
     ("GNews Hardware", "https://news.google.com/rss/search?q=(Nvidia+OR+GPU+OR+%22chip%22)+IA+when:2d&hl=es-419&gl=MX&ceid=MX%3Aes-419", "hardware", 1, "es", EDAD_ES),
+    # --- Anadidas para ampliar cobertura (verificadas 200) ---
+    ("Ahead of AI", "https://magazine.sebastianraschka.com/feed", "investigacion", 3, "prensa", EDAD_BLOG),
+    ("Last Week in AI", "https://lastweekin.ai/feed", "investigacion", 2, "prensa", EDAD_BLOG),
+    ("Simon Willison", "https://simonwillison.net/atom/everything/", "producto", 3, "prensa", EDAD_BLOG),
+    ("The Rundown AI", "https://www.therundown.ai/feed", "producto", 2, "prensa", EDAD_BLOG),
+    ("Wired AI", "https://www.wired.com/feed/tag/ai/latest/rss", "politica", 2, "prensa", EDAD_BLOG),
 ]
 
 PALABRAS = {
